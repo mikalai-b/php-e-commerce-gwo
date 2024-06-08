@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Component\Product\Entity;
+namespace App\Product\Domain\Model;
 
 class Product
 {

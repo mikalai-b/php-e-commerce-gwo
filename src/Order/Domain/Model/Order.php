@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Component\Order\Entity;
+namespace App\Order\Domain\Model;
 
-use App\Component\OrderItem\Entity\OrderItem;
-use App\Component\User\Entity\User;
+use App\User\Domain\Model\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 

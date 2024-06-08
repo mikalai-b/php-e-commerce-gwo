@@ -2,8 +2,8 @@
 
 namespace App\Tests\PhpUnit\App\Order\Entity;
 
-use App\Component\Order\Entity\Order;
-use App\Component\OrderItem\Entity\OrderItem;
+use App\Order\Domain\Model\Order;
+use App\Order\Domain\Model\OrderItem;
 use PHPUnit\Framework\TestCase;
 
 /**

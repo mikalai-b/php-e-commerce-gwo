@@ -10,16 +10,34 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
-            App:
+            Order:
                 is_bundle: false
                 type: xml
-                dir: '%kernel.project_dir%/config/doctrine'
-                prefix: 'App\Component'
-                alias: App
+                dir: '%kernel.project_dir%/src/Order/Adapter/Doctrine/config'
+                prefix: 'App\Order\Domain\Model'
+                alias: OrderDomainModel
+            Product:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Product/Adapter/Doctrine/config'
+                prefix: App\Product\Domain\Model
+                alias: ProductDomainModel
+            Promotion:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Promotion/Adapter/Doctrine/config'
+                prefix: App\Promotion\Domain\Model
+                alias: PromotionDomainModel
+            User:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/User/Adapter/Doctrine/config'
+                prefix: App\User\Domain\Model
+                alias: UserDomainModel
 
-when@test:
-    doctrine:
-        dbal:
+#when@test:
+#    doctrine:
+#        dbal:
             # "TEST_TOKEN" is typically set by ParaTest
             #dbname_suffix: '_test%env(default::TEST_TOKEN)%'
 

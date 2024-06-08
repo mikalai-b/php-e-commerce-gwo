@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Component\OrderItem\Entity;
+namespace App\Order\Domain\Model;
 
-use App\Component\Order\Entity\Order;
-use App\Component\Product\Entity\Product;
+use App\Product\Domain\Model\Product;
 
 class OrderItem
 {

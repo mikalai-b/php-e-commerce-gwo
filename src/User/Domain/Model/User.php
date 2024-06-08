@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Component\User\Entity;
+namespace App\User\Domain\Model;
 
-use App\Component\Order\Entity\Order;
+use App\Order\Domain\Model\Order;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 

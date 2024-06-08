@@ -2,9 +2,9 @@
 
 namespace App\DataFixtures;
 
-use App\Component\Product\Entity\Product;
-use App\Component\Promotion\Entity\Promotion;
-use App\Component\User\Entity\User;
+use App\Product\Domain\Model\Product;
+use App\Promotion\Domain\Model\Promotion;
+use App\User\Domain\Model\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 

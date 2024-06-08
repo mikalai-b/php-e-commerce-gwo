@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Component\Promotion\Entity;
+namespace App\Promotion\Domain\Model;
 
 class Promotion
 {
