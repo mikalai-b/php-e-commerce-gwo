@@ -8,6 +8,8 @@ use App\Product\Domain\Model\Product;
 
 class OrderItem
 {
+    const MAX_QUANTITY = 99;
+
     protected int $id;
     protected ?Order $order;
     protected ?Product $product;
