@@ -8,7 +8,7 @@ use App\Order\Adapter\Doctrine\OrderRepository;
 use App\Order\Domain\Model\Order;
 use App\Order\Domain\Model\OrderItem;
 use App\Product\Adapter\Doctrine\ProductRepository;
-use App\UseCase\TaxRateCalculate;
+use App\Order\Application\UseCase\TaxRateCalculate;
 
 class AddOrderItem
 {

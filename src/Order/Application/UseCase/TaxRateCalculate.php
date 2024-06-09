@@ -1,8 +1,9 @@
 <?php
 
-namespace App\UseCase;
+namespace App\Order\Application\UseCase;
 
-use App\Component\Product\Entity\Product;
+
+use App\Product\Domain\Model\Product;
 
 class TaxRateCalculate
 {
