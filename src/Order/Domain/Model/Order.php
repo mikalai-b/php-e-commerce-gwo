@@ -10,6 +10,8 @@ use Doctrine\Common\Collections\Collection;
 
 class Order
 {
+    const MAX_ITEMS_PER_ORDER = 5;
+
     protected int $id;
     protected User $user;
     protected int $itemsTotal = 0;

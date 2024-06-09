@@ -2,6 +2,10 @@ controllers:
   resource: ../../src/Controller/
   type: attribute
 
+order_controllers:
+  resource: ../../src/Order/Adapter/Symfony/Controller/
+  type: attribute
+
 kernel:
   resource: ../../src/Kernel.php
   type: attribute
