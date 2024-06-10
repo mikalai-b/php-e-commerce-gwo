@@ -2,7 +2,6 @@
 
 namespace App\Order\Adapter\Symfony\Controller;
 
-
 use App\Order\Application\UseCase\AddPromotion;
 use App\Order\Application\UseCase\CreateOrder;
 use App\Order\Application\UseCase\AddOrderItem;
@@ -36,6 +35,9 @@ class OrderController extends AbstractController
         return new JsonResponse();
     }
 
+    /**
+     * @throws \Exception
+     */
     #[Route('/add_promo/{orderId}/{promoId}', name: 'add_promo', methods: ['PUT'])]
     public function addPromotionAction(int $orderId, int $promoId, AddPromotion $addPromotion): JsonResponse
     {
