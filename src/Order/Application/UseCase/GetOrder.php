@@ -4,7 +4,11 @@ namespace App\Order\Application\UseCase;
 
 use App\Order\Adapter\Doctrine\OrderItemRepository;
 use App\Order\Adapter\Doctrine\OrderRepository;
+use App\Order\Application\Command\ProductCommand;
+use App\Order\Application\ViewModel\OrderItemView;
+use App\Order\Application\ViewModel\OrderView;
 use App\Order\Domain\Model\OrderItem;
+use App\Order\Domain\ValueObject\Currency;
 use App\Promotion\Domain\Model\Promotion;
 use Doctrine\Common\Collections\Criteria;
 
@@ -30,8 +34,9 @@ class GetOrder
     /**
      * @throws \Exception
      */
-    public function execute(int $orderId): array
+    public function execute(int $orderId, string $currency = Currency::PLN): array
     {
+        $rate = Currency::getValues()[$currency];
         $order = $this->orderRepository->findById($orderId);
         $criteria = Criteria::create()->orderBy(array("type" => Criteria::ASC)); // for sorting by time need to create a new entity and add field created_at
         $promotions = $order->getPromotions()->matching($criteria);
@@ -59,32 +64,37 @@ class GetOrder
 
             $this->orderItemRepository->save($orderItem);
 
-            $items[] = [
-                "id" => $orderItem->getId(),
-                "product" => [
-                  "code" => $orderItem->getProduct()->getCode(),
-                  "name" => $orderItem->getProduct()->getName()
-                ],
-                "unitPrice" => $orderItem->getUnitPrice(),
-                "discount" => $orderItem->getDiscount(),
-                "discountValue" => $orderItem->getDiscountValue(),
-                "distributedOrderDiscountValue" => $orderItem->getDistributedOrderDiscountValue(),
-                "discountedUnitPrice" => $orderItem->getDiscountedUnitPrice(),
-                "quantity" => $orderItem->getQuantity(),
-                "total" => $orderItem->getTotal(),
-                "taxValue" => $orderItem->getTaxValue(),
-            ];
+            $itemView = new OrderItemView(
+                $orderItem->getId(),
+                new ProductCommand(
+                  $orderItem->getProduct()->getCode(),
+                  $orderItem->getProduct()->getName()
+                ),
+                $orderItem->getUnitPrice(),
+                $orderItem->getDiscount(),
+                $orderItem->getDiscountValue(),
+                $orderItem->getDistributedOrderDiscountValue(),
+                $orderItem->getDiscountedUnitPrice(),
+                $orderItem->getQuantity(),
+                $orderItem->getTotal(),
+                $orderItemTax,
+                $rate
+            );
+            $items[] = $itemView->toArray();
         }
         $order->setTotal($total);
         $order->setAdjustmentsTotal($adjustmentsTotal);
         $this->orderRepository->save($order);
 
-        return [
-            "id" => $order->getId(),
-            "itemsTotal" => $order->getItemsTotal(),
-            "taxTotal" => $taxTotal,
-            "total" => $total,
-            "items" => $items
-        ];
+        $view = new OrderView(
+            $order->getId(),
+            $order->getItemsTotal(),
+            $taxTotal,
+            $total,
+            $items,
+            $rate
+        );
+
+        return $view->toArray();
     }
 }

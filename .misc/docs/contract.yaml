@@ -5,14 +5,90 @@ info:
 servers:
   - url: https://localhost
 paths:
-  /path_to_get_order_details:
-    get:
+  /create_order:
+    post:
       parameters:
-        - in: path
-          name: orderId
+        - in: header
+          name: userId
           required: true
           schema:
             type: integer
+      responses:
+        200:
+          description: Order created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateOrderResponse'
+        404:
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /add_item/{order_id}/{product_id}:
+    post:
+      parameters:
+        - in: path
+          name: order_id
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: product_id
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Order created
+          content:
+            application/json:
+              schema: {}
+        404:
+          description: Order or Product not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /add_promo/{order_id}/{promotion_id}:
+    put:
+      parameters:
+        - in: path
+          name: order_id
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: promotion_id
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Adding promotion to Order
+          content:
+            application/json:
+              schema: {}
+        404:
+          description: Order or Promotion not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /order/{order_id}:
+    get:
+      parameters:
+        - in: path
+          name: order_id
+          required: true
+          schema:
+            type: integer
+        - in: header
+          name: currency
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: Order details
@@ -100,6 +176,12 @@ components:
           type: string
         name:
           type: string
+
+    CreateOrderResponse:
+      type: object
+      properties:
+        order_id:
+          type: integer
 
     ErrorResponse:
       type: object
