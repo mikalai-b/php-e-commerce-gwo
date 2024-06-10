@@ -12,15 +12,16 @@ use App\Order\Domain\Model\OrderItem;
 use App\Product\Adapter\Doctrine\ProductRepository;
 use App\Product\Domain\Model\Product;
 use Exception;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AddOrderItemTest extends TestCase
 {
-    private OrderItemRepository $orderItemRepository;
-    private OrderRepository $orderRepository;
-    private ProductRepository $productRepository;
-    private TaxRateCalculate $taxRateCalculate;
+    private OrderItemRepository&MockObject $orderItemRepository;
+    private OrderRepository&MockObject $orderRepository;
+    private ProductRepository&MockObject $productRepository;
+    private TaxRateCalculate&MockObject $taxRateCalculate;
     private AddOrderItem $case;
 
     public function setUp(): void

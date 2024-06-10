@@ -13,10 +13,14 @@ class OrderItem
     protected int $id;
     protected ?Order $order;
     protected ?Product $product;
-    protected int $quantity;
+    protected int $quantity = 0;
     protected int $unitPrice;
     protected ?int $taxValue;
     protected int $total = 0;
+    protected int $discount;
+    protected int $discountValue;
+    protected int $distributedOrderDiscountValue;
+    protected int $discountedUnitPrice;
 
     public function getId(): int
     {
@@ -91,5 +95,69 @@ class OrderItem
     public function recalculateTotal(): void
     {
         $this->total = $this->getSubtotal();
+    }
+
+    /**
+     * @return int
+     */
+    public function getDiscount(): int
+    {
+        return $this->discount;
+    }
+
+    /**
+     * @param int $discount
+     */
+    public function setDiscount(int $discount): void
+    {
+        $this->discount = $discount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDiscountValue(): int
+    {
+        return $this->discountValue;
+    }
+
+    /**
+     * @param int $discountValue
+     */
+    public function setDiscountValue(int $discountValue): void
+    {
+        $this->discountValue = $discountValue;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDistributedOrderDiscountValue(): int
+    {
+        return $this->distributedOrderDiscountValue;
+    }
+
+    /**
+     * @param int $distributedOrderDiscountValue
+     */
+    public function setDistributedOrderDiscountValue(int $distributedOrderDiscountValue): void
+    {
+        $this->distributedOrderDiscountValue = $distributedOrderDiscountValue;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDiscountedUnitPrice(): int
+    {
+        return $this->discountedUnitPrice;
+    }
+
+    /**
+     * @param int $discountedUnitPrice
+     */
+    public function setDiscountedUnitPrice(int $discountedUnitPrice): void
+    {
+        $this->discountedUnitPrice = $discountedUnitPrice;
     }
 }
