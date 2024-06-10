@@ -45,7 +45,7 @@ class AddOrderItem
             $orderItem = new OrderItem();
             $orderItem->setOrder($order);
             $orderItem->setProduct($product);
-            $orderItem->setUnitPrice($product->getPrice()); // What if product has already added, but price in Product changed? Can be resolve if Product is unchangeable entity.
+            $orderItem->setUnitPrice($product->getPrice());
         }
         $quantity = $orderItem->getQuantity() + 1;
         if ($quantity > OrderItem::MAX_QUANTITY) {
@@ -55,5 +55,8 @@ class AddOrderItem
         $orderItem->setTaxValue($this->taxRateCalculate->execute($product, $orderItem->getSubtotal()));
         $orderItem->setTotal($orderItem->getSubtotal());
         $this->orderItemRepository->save($orderItem);
+
+        $order->setItemsTotal($order->getItemsTotal() + $quantity);
+        $this->orderRepository->save($order);
     }
 }
