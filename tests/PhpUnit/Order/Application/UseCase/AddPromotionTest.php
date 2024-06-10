@@ -13,8 +13,8 @@ use App\Promotion\Domain\Model\Promotion;
 
 class AddPromotionTest extends TestCase
 {
-    private OrderRepository|MockObject $orderRepository;
-    private PromotionRepository|MockObject $promotionRepository;
+    private OrderRepository&MockObject $orderRepository;
+    private PromotionRepository&MockObject $promotionRepository;
     private AddPromotion $addPromotionUseCase;
 
     protected function setUp(): void
@@ -24,7 +24,7 @@ class AddPromotionTest extends TestCase
         $this->addPromotionUseCase = new AddPromotion($this->orderRepository, $this->promotionRepository);
     }
 
-    public function testExecuteThrowsExceptionIfPromotionAlreadyAdded()
+    public function testExecuteThrowsExceptionIfPromotionAlreadyAdded(): void
     {
         $order = $this->createMock(Order::class);
         $promo = $this->createMock(Promotion::class);
@@ -40,7 +40,7 @@ class AddPromotionTest extends TestCase
         $this->addPromotionUseCase->execute(1, 1);
     }
 
-    public function testExecuteThrowsExceptionIfMultipleOrderTypePromotionsAdded()
+    public function testExecuteThrowsExceptionIfMultipleOrderTypePromotionsAdded(): void
     {
         $order = $this->createMock(Order::class);
         $promo = $this->createMock(Promotion::class);
@@ -63,7 +63,7 @@ class AddPromotionTest extends TestCase
         $this->addPromotionUseCase->execute(1, 1);
     }
 
-    public function testExecuteAddsPromotionSuccessfully()
+    public function testExecuteAddsPromotionSuccessfully(): void
     {
         $order = $this->createMock(Order::class);
         $promo = $this->createMock(Promotion::class);
