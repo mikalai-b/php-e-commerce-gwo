@@ -118,7 +118,8 @@ class AddOrderItemTest extends TestCase
      */
     public function testExecuteSuccess(): void
     {
-        $order = new Order();
+        $order = $this->createMock(Order::class);
+        $order->expects($this->once())->method("getItemsTotal")->willReturn(0);
         $product = $this->createMock(Product::class);
         $orderItem = $this->createMock(OrderItem::class);
         $orderItem->expects($this->once())->method('getQuantity')->willReturn(1);
@@ -138,6 +139,9 @@ class AddOrderItemTest extends TestCase
         $orderItem->expects($this->once())->method('setTotal')->with(100);
 
         $this->orderItemRepository->expects($this->once())->method('save')->with($orderItem);
+        $order->expects($this->once())->method("setItemsTotal")->with(2);
+
+        $this->orderRepository->expects($this->once())->method('save');
 
         $this->case->execute(1, 1);
     }

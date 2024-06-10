@@ -14,6 +14,6 @@ class TaxRateCalculate
             return 0;
         }
 
-        return (int) ($subtotal * $taxRate/100);
+        return (int) ceil($subtotal - ($subtotal / (1 + $taxRate / 100)));
     }
 }
