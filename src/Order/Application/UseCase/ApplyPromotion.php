@@ -12,7 +12,7 @@ class ApplyPromotion
         // Promotions type 1 always will be overwritten
         if ($promotion->getType() == Promotion::TYPE_ITEM && in_array($orderItem->getProduct()->getType(), $promotion->getProductTypesFilter())) {
             $orderItem->setDiscount($promotion->getPercentageDiscount());
-            $discountValue = (int) round($orderItem->getUnitPrice() * $orderItem->getDiscount() / 100);
+            $discountValue = (int) round($orderItem->getUnitPrice() * $promotion->getPercentageDiscount() / 100);
             $orderItem->setDiscountValue($discountValue);
             $orderItem->setDiscountedUnitPrice($orderItem->getUnitPrice() - $discountValue);
         }
