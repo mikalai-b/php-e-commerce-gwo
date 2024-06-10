@@ -17,7 +17,7 @@ class OrderController extends AbstractController
     #[Route('/create_order', name: 'create_order', methods: ['POST'])]
     public function createOrderAction(Request $request, CreateOrder $createOrder): JsonResponse
     {
-        $orderId = $createOrder->execute((int) $request->headers->get('userId'));
+        $orderId = $createOrder->execute((int) $request->headers->get('user_id'));
         return new JsonResponse(["order_id" => $orderId]);
     }
 
