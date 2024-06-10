@@ -54,8 +54,8 @@ class GetOrder
             $orderItem->setTaxValue($orderItemTax);
 
             $adjustmentsTotal = $adjustmentsTotal - $orderItem->getDiscountValue() - $orderItem->getDistributedOrderDiscountValue();
-            $total =+ $orderItemTotal;
-            $taxTotal =+ $orderItemTax;
+            $total += $orderItemTotal;
+            $taxTotal += $orderItemTax;
 
             $this->orderItemRepository->save($orderItem);
 
