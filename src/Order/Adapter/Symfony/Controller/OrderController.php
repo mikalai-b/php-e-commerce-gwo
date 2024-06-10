@@ -7,6 +7,7 @@ use App\Order\Application\UseCase\AddPromotion;
 use App\Order\Application\UseCase\CreateOrder;
 use App\Order\Application\UseCase\AddOrderItem;
 use App\Order\Application\UseCase\GetOrder;
+use App\Order\Domain\ValueObject\Currency;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,9 +47,9 @@ class OrderController extends AbstractController
      * @throws \Exception
      */
     #[Route('/order/{orderId}', name: 'get_order', methods: ['GET'])]
-    public function getOrderAction(int $orderId, GetOrder $getOrder): JsonResponse
+    public function getOrderAction(int $orderId, GetOrder $getOrder, Request $request): JsonResponse
     {
-        $orderResponse = $getOrder->execute($orderId);
+        $orderResponse = $getOrder->execute($orderId, $request->headers->get('currency', Currency::PLN));
         return new JsonResponse($orderResponse);
     }
 }
