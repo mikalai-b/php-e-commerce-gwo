@@ -11,6 +11,10 @@
         <field name="unitPrice" type="integer"/>
         <field name="total" type="integer"/>
         <field name="taxValue" type="integer" nullable="true"/>
+        <field name="discount" type="integer" nullable="true"/>
+        <field name="discountValue" type="integer" nullable="true"/>
+        <field name="distributedOrderDiscountValue" type="integer" nullable="true"/>
+        <field name="discountedUnitPrice" type="integer" nullable="true"/>
 
         <many-to-one field="order" target-entity="App\Order\Domain\Model\Order" inversed-by="items">
             <join-column name="order_id" referenced-column-name="id" nullable="false" on-delete="CASCADE"/>

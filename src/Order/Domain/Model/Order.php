@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Order\Domain\Model;
 
+use App\Promotion\Domain\Model\Promotion;
 use App\User\Domain\Model\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -24,10 +25,15 @@ class Order
      * @var Collection<array-key, OrderItem>
      */
     protected Collection $items;
+    /**
+     * @var Collection<array-key, Promotion>
+     */
+    protected Collection $promotions;
 
     public function __construct()
     {
         $this->items = new ArrayCollection();
+        $this->promotions = new ArrayCollection();
     }
 
     public function getId(): int
@@ -115,6 +121,28 @@ class Order
     }
 
     /**
+     * @return Collection<array-key, Promotion>
+     */
+    public function getPromotions(): Collection
+    {
+        return $this->promotions;
+    }
+
+    public function addPromotion(Promotion $promotion): void
+    {
+        if ($this->hasPromotion($promotion)) {
+            return;
+        }
+
+        $this->promotions->add($promotion);
+    }
+
+    public function hasPromotion(Promotion $promotion): bool
+    {
+        return $this->promotions->contains($promotion);
+    }
+
+    /**
      * Items total + Adjustments total.
      */
     protected function recalculateTotal(): void
@@ -134,5 +162,13 @@ class Order
         }
 
         $this->recalculateTotal();
+    }
+
+    /**
+     * @param int $itemsTotal
+     */
+    public function setItemsTotal(int $itemsTotal): void
+    {
+        $this->itemsTotal = $itemsTotal;
     }
 }
